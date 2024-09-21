@@ -1,6 +1,6 @@
 ---
 title: "RWorksheet_Cahutay#2"
-author: "Mark Anton Cahutay"
+author: "Mark Anton B. Cahutay"
 date: "`r Sys.Date()`"
 output: html_document
 ---
@@ -170,6 +170,81 @@ power_ranking
 pay
 ```
 Number 8:
-C. 
+C. import excel/csv file
+```{r}
+forbes_ranking <- read.csv("PowerRanking.csv")
+forbes_ranking
+```
+Number 8: 
+D. Access row 10 to 20
+```{r}
+row_data <- forbes_ranking[10:20, ]
+
+save(row_data, file = "Ranks.RData")
+
+load("Ranks.RData")
+row_data
+
+#E. The output generated a tabular like format of excel showing the data from row 10 - 20.
+```
 
 
+Number 9:
+A.  Import the excel file to RStudio. 
+```{r}
+library(openxlsx)
+hotel_vienna <- read.xlsx("hotels-vienna.xlsx")
+```
+
+B. Dimensions of the data set
+```{r}
+dim(hotel_vienna)
+```  
+
+C. Select Columns
+```{r}
+columns <- hotel_vienna[, c("country", "neighbourhood", "price", "stars", "accommodation_type", "rating")]
+columns
+```
+
+D. Saving data as **new.RData 
+```{r}
+save(columns, file = "new.RData")
+```   
+
+E. Display the first six rows and last six rows of the new.RData. What is the R script?
+```{r}
+load("new.RData")
+head(columns)
+tail(columns)
+```
+
+
+Number 10: List of 10 vegetables
+A.
+```{r}
+veggies <- list("Eggplpant", "Cabbage", "Broccoli", "Water Spinach", "Squash",
+               "Onion", "Pipino", "Patola", "Patani", "Malunggay"
+)
+veggies
+```
+
+B. Addition of 2 veggies
+```{r}
+veggies <- append(veggies, list("Carrot", "Spinach"))
+veggies
+```   
+
+C. Added 4 additional veggies
+```{r}
+veggies <- append(veggies, list("Bitter Gourd", "Tomato", "Potato", "Kasoy"), after = 5)
+veggies
+length(veggies)
+```   
+
+D. Removed vegetables in index 5, 10, and 15.
+```{r}
+veggies <- veggies[-c(5, 10, 15)]
+veggies
+length(veggies)
+```   
