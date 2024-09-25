@@ -123,9 +123,8 @@ pay
 
 # B. Modified J.K. Rowling details: 
 # J.K. Rowling ranking and pay are modified.
-celebrity_name[15] <- "J.K. Rowling"
-power_ranking[15] <- 15
-pay[15] <- 90
+power_ranking[19] <- 15
+pay[19] <- 90
 
 # Modified output
 celebrity_name
