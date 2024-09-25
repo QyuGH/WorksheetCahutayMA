@@ -11,7 +11,7 @@
 
 <meta name="author" content="Mark Anton B. Cahutay" />
 
-<meta name="date" content="2024-09-21" />
+<meta name="date" content="2024-09-25" />
 
 <title>RWorksheet_Cahutay#2</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">RWorksheet_Cahutay#2</h1>
 <h4 class="author">Mark Anton B. Cahutay</h4>
-<h4 class="date">2024-09-21</h4>
+<h4 class="date">2024-09-25</h4>
 
 </div>
 
@@ -516,25 +516,24 @@ pay</code></pre>
 <pre><code>##  [1]  67  90 225 110  90 332 302  41  52  88  55  44  55  40 233  34  40  47  75
 ## [20]  25  39  45  32  40  31</code></pre>
 <p>Number 8: B. Modified J.K. Rowling</p>
-<pre class="r"><code>celebrity_name[15] &lt;- &quot;J.K. Rowling&quot;
-power_ranking[15] &lt;- 15
-pay[15] &lt;- 90
+<pre class="r"><code>power_ranking[19] &lt;- 15
+pay[19] &lt;- 90
 
 #modified output
-celebrity_name</code></pre>
+power_ranking</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 15 20 21 22 23 24 25</code></pre>
+<pre class="r"><code>celebrity_name</code></pre>
 <pre><code>##  [1] &quot;Tom Cruise&quot;           &quot;Rolling Stones&quot;       &quot;Oprah Winfrey&quot;       
 ##  [4] &quot;U2&quot;                   &quot;Tiger Woods&quot;          &quot;Steven Spielberg&quot;    
 ##  [7] &quot;Howard Stern&quot;         &quot;50 Cent&quot;              &quot;Cast of the Sopranos&quot;
 ## [10] &quot;Dan Brown&quot;            &quot;Bruce Springsteen&quot;    &quot;Donald Trump&quot;        
-## [13] &quot;Muhammad Ali&quot;         &quot;Paul McCartney&quot;       &quot;J.K. Rowling&quot;        
+## [13] &quot;Muhammad Ali&quot;         &quot;Paul McCartney&quot;       &quot;George Lucas&quot;        
 ## [16] &quot;Elton John&quot;           &quot;David Letterman&quot;      &quot;Phil Mickelson&quot;      
 ## [19] &quot;J.K Rowling&quot;          &quot;Brad Pitt&quot;            &quot;Peter Jackson&quot;       
 ## [22] &quot;Dr. Phil McGraw&quot;      &quot;Jay Leno&quot;             &quot;Celine Dion&quot;         
 ## [25] &quot;Kobe Bryant&quot;</code></pre>
-<pre class="r"><code>power_ranking</code></pre>
-<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25</code></pre>
 <pre class="r"><code>pay</code></pre>
-<pre><code>##  [1]  67  90 225 110  90 332 302  41  52  88  55  44  55  40  90  34  40  47  75
+<pre><code>##  [1]  67  90 225 110  90 332 302  41  52  88  55  44  55  40 233  34  40  47  90
 ## [20]  25  39  45  32  40  31</code></pre>
 <p>Number 8: C. import excel/csv file</p>
 <pre class="r"><code>forbes_ranking &lt;- read.csv(&quot;PowerRanking.csv&quot;)
@@ -1023,7 +1022,7 @@ columns</code></pre>
 ## 426 Austria               Wieden   100   4.0               Hotel    4.4
 ## 427 Austria               Wieden    58   3.0               Hotel    3.2
 ## 428 Austria               Wieden   110   3.5           Apartment    4.0</code></pre>
-<p>D. Savin data as **new.RData</p>
+<p>D. Saving data as **new.RData</p>
 <pre class="r"><code>save(columns, file = &quot;new.RData&quot;)</code></pre>
 <p>E. Display the first six rows and last six rows of the new.RData.
 What is the R script?</p>

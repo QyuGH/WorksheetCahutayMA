@@ -160,13 +160,12 @@ pay
 Number 8: 
 B. Modified J.K. Rowling
 ```{r}
-celebrity_name[15] <- "J.K. Rowling"
-power_ranking[15] <- 15
-pay[15] <- 90
+power_ranking[19] <- 15
+pay[19] <- 90
 
 #modified output
-celebrity_name
 power_ranking
+celebrity_name
 pay
 ```
 Number 8:
