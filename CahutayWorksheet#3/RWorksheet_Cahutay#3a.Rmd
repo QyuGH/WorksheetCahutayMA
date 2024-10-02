@@ -1,0 +1,174 @@
+---
+title: "RWorksheet_Cahutay#3a"
+author: "Mark Anton Cahutay"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Using Vectors
+1. 
+```{r}
+LETTERS
+letters
+
+#A. You need to produce a vector that contains the first 11 letters.
+my_letter <- LETTERS[1:11]
+my_letter
+```
+
+```{r}
+#B. Produce a vector that contains the odd numbered letters.
+odd_letters <- LETTERS[seq(1, length(LETTERS), by = 2)]
+odd_letters
+```
+
+```{r}
+#C. Produce a vector that contains the vowels
+vowels <- LETTERS[LETTERS %in% c("A", "E", "I", "O", "U")]
+vowels
+```
+
+```{r}
+#D. Produce a vector that contains the last 5 lowercase letters.
+last_five <- letters[(length(letters) - 4):length(letters)]
+last_five
+```
+
+```{r}
+#E. Produce a vector that contains letters between 15 to 24 letters in lowercase.
+my_small_letters <- letters[15:24]
+my_small_letters
+```
+
+
+2. Create a vector with the average temperatures in April
+```{r}
+#A. Vector for city names
+city <- c("Tuguegarao City", "Manila", "Iloilo City", "Tacloban", "Samal Island", "Davao City")
+city
+```
+
+```{r}
+#B. Vector for city's average temperature
+temp <- c(42, 39, 34, 34, 30, 27)
+temp
+```
+
+```{r}
+#C. Data Frame for the city and average temperature
+citytemp_df <- data.frame(city, temp)
+citytemp_df
+```
+
+```{r}
+#D. Modify column names of Data Frame
+names(citytemp_df) <- c("City", "Temperature")
+citytemp_df
+```
+
+```{r}
+#E. Print the structure by using str() function. 
+citytemp_df
+str(citytemp_df)
+```
+
+```{r}
+#F. The content of row 3 and row 4 from the answer in D.
+my_rows <- citytemp_df[c(3, 4), ]
+my_rows
+```
+
+```{r}
+#G. Display the city with highest and lowest temperature
+highest_temp <- max(citytemp_df$Temperature)
+lowest_temp <- min(citytemp_df$Temperature)
+city_highest <- citytemp_df[citytemp_df$Temperature == highest_temp, ]
+city_highest
+city_lowest <- citytemp_df[citytemp_df$Temperature == lowest_temp, ]
+city_lowest
+```
+
+
+2. Create a matrix of one to eight and eleven to fourteen with four columns and three rows.
+```{r}
+#A. R code and its result
+my_matrix <- matrix(c(c(1:8), c(11:14)), nrow = 3, ncol = 4)
+my_matrix
+```
+
+```{r}
+#B. R code and result of matrix multiplied by two
+matrix2 <- my_matrix * 2
+matrix2
+```
+
+```{r}
+#C. R code for accessing the content in row 2
+my_matrix[2,]
+```
+
+```{r}
+#D. R code to display content of column 3 and 4 in row 1 and 2
+my_matrix[(c(1, 2)), (c(3,4))]
+```
+
+```{r}
+#E. R code to display only the columns in 2 and 3, row 3.
+my_matrix[3, (c(2,3))]
+```
+
+```{r}
+#F. R code to display only the columns 4.
+my_matrix[, 4]
+```
+
+```{r}
+#G. Naming the rows and columns of matrix created from B.
+dimnames(matrix2) <- list(c("isa", "dalawa", "tatlo"), c("uno", "dos", "tres", "quatro"))
+matrix2
+```
+
+```{r}
+#H. Assigning new dimension of the matrix created from A.
+dim(my_matrix) <- c(6,2)
+my_matrix
+```
+
+
+Using Arrays
+3. An array contains 1, 2, 3, 6, 7, 8, 9, 0, 3, 4, 5, 1
+```{r}
+#A. Create an array for the above values
+my_array <- c(1, 2, 3, 6, 7, 8, 9, 0, 3, 4, 5, 1)
+my_3Darray <- array(rep(my_array, each = 2), dim = c(2,4,3))
+my_3Darray
+```
+
+```{r}
+#B. The number of dimensions my array have
+dim(my_3Darray)
+```
+
+```{r}
+#C. 
+dimnames(my_3Darray) <- list(
+  c("a", "b"), 
+  c("A", "B", "c", "D"),
+  c("1st-Dimensional Array", "2nd-Dimensional Array", "3rd-Dimensional Array")
+)          
+my_3Darray
+```
+
+
+
+
+
+
+
+
+
+
