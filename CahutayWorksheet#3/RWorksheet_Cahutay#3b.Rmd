@@ -1,0 +1,149 @@
+---
+title: "RWorksheet_Cahutay#3b"
+author: "Mark Anton Cahutay"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Data Frame from the Table
+```{r}
+#A. R codes for data frame from the table
+survey_df <- data.frame(
+  Respondents = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20),
+  Sex = c(2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2),
+  Fathers_Occupation = c(1, 3, 3, 3, 1, 2, 3, 1, 1, 1, 3, 2, 1, 3, 3, 1, 3, 1, 2, 1),
+  Persons_at_Home = c(5, 7, 3, 8, 5, 9, 6, 7, 8, 4, 7, 5, 4, 7, 8, 8, 3, 11, 7, 6),
+  Siblings_at_School = c(6, 4, 4, 1, 2, 1, 5, 3, 1, 2, 3, 2, 5, 5, 2, 1, 2, 5, 3, 2),
+  Types_of_Houses = c(1, 2, 3, 1, 1, 3, 3, 1, 2, 3, 2, 3, 2, 2, 3, 3, 3, 3, 3, 2)
+)
+survey_df
+```
+
+```{r}
+#B. Describe the data. Get the structure or the summary of the data
+#The data consist responses from 20 individuals, detailing their gender, 
+#fathers' occupations, household sizes, number of siblings in school, and types of housings.
+str(survey_df)
+```
+
+```{r}
+#C. Mean of siblings attending
+sibling_attendance <- mean(survey_df$Siblings_at_School)
+sibling_attendance
+sibling_attendance == 5
+```
+
+```{r}
+#D. Extracted the 1st two rows and all the columns using the subsetting functions.
+extracted_df <- survey_df[1:2,]
+extracted_df
+```
+
+```{r}
+#E. Extracted the 3rd and 5th row with 2nd and 4th column.
+extracted_df2 <- survey_df[c(3,5), c(2,4)]
+extracted_df2
+```
+
+```{r}
+#F. Select the variable types of houses then store the vector that results as types_houses.
+types_houses <- c(survey_df$Types_of_Houses)
+types_houses
+```
+
+```{r}
+#G. Select only all Males respondent that their father occupation was farmer.
+male_farmers <- survey_df[survey_df$Sex == 1 & survey_df$Fathers_Occupation == 1, ]
+male_farmers
+```
+
+```{r}
+#H. Female respondents that have greater than or equal to 5 number of siblings attending school.
+female_siblings <- survey_df[survey_df$Sex == 2 & survey_df$Siblings_at_School >= 5, ]
+female_siblings
+```
+
+
+2. Write an R program to create an empty data frame.
+```{r}
+df = data.frame(Ints=integer(),
+
+Doubles=double(), Characters=character(),
+Logicals=logical(),
+Factors=factor(),
+stringsAsFactors=FALSE)
+
+print("Structure of the empty dataframe:")
+print(str(df))
+```
+- A. Results Description
+The output indicates that an empty data frame has been created with 0 observations and 5 columns which are the Ints, Doubles, Characters, Logicals, and Factors, each defined by its respective data type but without any values.
+
+
+3. Create a .csv file of this. Save it as HouseholdData.csv
+```{r} 
+#A. Imported the csv file into the R environment
+household <- read.csv("HouseholdData.csv")
+household
+```
+
+```{r}
+#B. Converted the Sex into factor using factor() function
+household$Sex <- as.integer(
+                  factor(household$Sex,
+                  levels = c("Male", "Female"),
+                  labels = c(1, 2))
+                  )
+household
+```
+
+```{r}
+#C. Converted the Type of Houses into factor and changed it into integer. 
+household$Types_of_Houses <- as.integer(
+                              factor(household$Types_of_Houses, 
+                              levels = c("Wood", "Congrete", "Semi-Congrete"),
+                              labels = c(1, 2, 3))
+                              )
+household
+```
+
+```{r}
+#D. On father’s occupation, factor it as Farmer = 1; Driver = 2; and Others = 3.
+household$Fathers_Occupation <- as.character(
+                                  factor(household$Fathers_Occupation,
+                                  levels = c(1,2,3),
+                                  labels =  c("Farmer", "Driver", "Others"))
+                                  )
+household
+```
+
+```{r}
+#E. Select only all females respondent that has a father whose occupation is driver.
+subset(household[,c(2:3)], Sex == 2 & Fathers_Occupation == "Driver")
+```
+
+```{r}
+#F. Respondents that have greater than or equal to 5 number of siblings attending school.
+subset(household[,c(1,5)], Siblings_at_School >= 5)
+
+```
+
+
+4. Interpret the graph
+- The bar graph illustrates sentiments of tweets per day from July 14 to July 21, 2020, which 
+were categorized into negative, positive, and neutral. Throughout the period, Negative tweets were
+more prevalent especially on July 15 and 21 where both reached over 4000. On the other hand, the 
+Positive and Negative category remained steady throughout the period. Overall, the data highlights 
+that negative tweets were more dominant while positive and neutral maintained balance.
+
+
+
+
+
+
+
+
