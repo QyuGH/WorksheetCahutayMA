@@ -44,7 +44,7 @@ mean_height
 ```
 
 ```{r}
-#D. Yes, there is a relationship between the shoe size and height of the respondent because when the respondent's height is taller, chances are their shoe size also is higher.
+#D. Yes, there is a relationship between the shoe size and height of the respondent because when the respondent's height is taller, their shoe size is also higher.
 ```
 
 
@@ -71,8 +71,27 @@ summary(factor_months_vector)
 
 #The summary of the months_vector data shows the structure about its length, class, and mode.
 #The summary of the factor_months_vector shows the frequency of the months appearing in the dataset.
-#Both of the results shows useful relationship with each other. The summary of the months_vector provides the overall structure of the data while the results of factor_months_vector provides useful infortmation about the content of the data.
+#Both of the results shows relationship and useful information with each other. The summary of the months_vector provides the overall structure of the data while the results of factor_months_vector provides useful information about the content of the data.
+```
+
+4. Create vector and factor for direction table
+```{r}
+direction <- c("East", "West", "North")
+frequency <- c(1, 4, 3)
+
+new_order_data <- factor(direction, levels = c("East","West","North"))
+print(new_order_data)
 ```
 
 
+5. Import excel file
+```{r}
+#A. Import using read.table()
+my_file <- read.table("import_march.csv", header = TRUE, sep = ",")
 
+```
+
+```{r}
+#b. View the dataset. Write the R scripts and its result.
+print(my_file)
+``` 
