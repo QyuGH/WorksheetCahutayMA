@@ -1,0 +1,78 @@
+---
+title: "RWorksheet_Cahutay#4a"
+author: "Mark Anton Cahutay"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Data Frame about shoe size and height.
+```{r}
+#A.  
+shoe_size <- c(6.5, 9.0, 8.5, 8.5, 10.5, 7.0, 9.5, 9.0, 13.0, 7.5, 10.5, 8.5, 12.0, 10.5, 13.0, 11.5, 8.5, 5.0, 10.0, 6.5, 7.5, 8.5, 10.5, 8.5, 10.5, 11.0, 9.0, 13.0)
+height <- c(66.0, 68.0, 64.5, 65.0, 70.0, 64.0, 70.0, 71.0, 72.0, 64.0, 74.5, 67.0, 71.0, 71.0, 77.0, 72.0, 59.0, 62.0, 72.0, 66.0, 64.0, 67.0, 73.0, 69.0, 72.0, 70.0, 69.0, 70.0)
+gender <- c('F', 'F', 'F', 'F', 'M', 'F', 'F', 'F', 'M', 'F', 'M', 'F', 'M', 'M', 'M', 'M', 'F', 'F', 'M', 'F', 'F', 'M', 'M', 'F', 'M', 'M', 'M', 'M')
+
+shoe_data <- data.frame(
+  Shoe_Size = shoe_size,
+  Height = height,
+  Gender = gender
+)
+shoe_data
+#output shows the tabular data of shoe size, height, and gender.
+```
+
+```{r}
+#B. Subset by males and females
+males <- subset(shoe_data, Gender == "M", select = c(Shoe_Size, Height))
+males
+
+females <- subset(shoe_data, Gender == "F", select = c(Shoe_Size, Height))
+females
+```
+
+```{r}
+#C. Mean of the shoe size and height.
+mean_shoe <- mean(shoe_data$Shoe_Size)
+mean_shoe
+
+mean_height <- mean(shoe_data$Height)
+mean_height
+```
+
+```{r}
+#D. Yes, there is a relationship between the shoe size and height of the respondent because when the respondent's height is taller, chances are their shoe size also is higher.
+```
+
+
+2. Factor a character vector months
+```{r}
+months_vector <- c(
+  "March", "April", "January", "November", "January", "September", 
+  "October", "September", "November", "August", "January", 
+  "November", "November", "February", "May", "August", "July", 
+  "December", "August", "August", "September", "November", 
+  "February", "April"
+)
+factor_months_vector <- factor(months_vector)
+factor_months_vector
+
+levels(factor_months_vector)
+```
+
+
+3. Check summary() of the months_vector and factor_months_vector
+```{r}
+summary(months_vector)
+summary(factor_months_vector)
+
+#The summary of the months_vector data shows the structure about its length, class, and mode.
+#The summary of the factor_months_vector shows the frequency of the months appearing in the dataset.
+#Both of the results shows useful relationship with each other. The summary of the months_vector provides the overall structure of the data while the results of factor_months_vector provides useful infortmation about the content of the data.
+```
+
+
+
