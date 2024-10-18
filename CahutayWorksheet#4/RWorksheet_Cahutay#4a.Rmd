@@ -95,3 +95,110 @@ my_file <- read.table("import_march.csv", header = TRUE, sep = ",")
 #b. View the dataset. Write the R scripts and its result.
 print(my_file)
 ``` 
+
+
+6. Full Search
+```{r}
+#A. 
+exhaustive_search <- function(user_input){
+  if (user_input < 1 | user_input > 50){
+    print("The number selected is beyond the range of 1 to 50")
+  }else if (user_input == 20){
+    print("TRUE")
+  }else {
+    print(user_input)
+  }
+}
+user_input <- readline(prompt = "Select a number from 1 - 50: ")
+exhaustive_search(user_input)
+
+```
+
+
+7. Change
+```{r}
+min_bills <- function(price){
+  bills <- c(1000, 500, 200, 100, 50)
+  total_bills <- 0
+  
+  for (bill in bills) {
+    count <- floor(price / bill)
+    price <- price - count * bill
+    total_bills <- total_bills + count
+  }
+  
+  return(total_bills)
+}
+
+price <- as.numeric(readline(prompt = "Enter the price of the snack: "))
+print(paste("Minimum number of bills needed to purchase a snack:", min_bills(price)))
+```
+
+
+8. Data Frame of Student's Grade
+```{r}
+name <- c("Annie", "Thea", "Steve", "Hanna")
+grade1 <- c(85, 65, 75, 95)
+grade2 <- c(65, 75, 55, 75)
+grade3 <- c(85, 90, 80, 100)
+grade4 <- c(100, 90, 85, 90)
+
+#A. data frame of student grades
+student_grade <- data.frame(
+  Name = name,
+  Grade1 = grade1, 
+  Grade2 = grade2,
+  Grade3 = grade3,
+  Grade4 = grade4
+)
+student_grade
+```
+
+```{r}
+#B. Output the average score of student with an average over 90
+for (i in 1:4) {
+  total <- sum(student_grade[i, 2:5])  
+  average <- total / 4
+  
+  if (average >= 90){
+    print(paste0(student_grade[i, 1], "'s average grade this semester is ", average))
+  }
+}
+```
+
+```{r}
+#C. output as follows for the tests in which the average score was less than 80 out of 4 tests
+for (i in 2:4){
+  total <- 0
+  for (j in 1:4){
+    total <- total + student_grade[j, i]
+  }
+  
+  average <- total / 4
+  
+  if (average < 80){
+    print(paste("The", colnames(student_grade[i]), "test was difficult"))
+  }
+}
+```
+
+```{r}
+#D. Students whose highest score for a semester exceeds 90 points.
+for (j in 1:nrow(student_grade)) {  
+  highest <- student_grade[j, 2]
+  
+  for (i in 3:ncol(student_grade)) { 
+    if (student_grade[j, i] > highest) {
+      highest <- student_grade[j, i]  
+    }
+  }
+ 
+  if (highest >= 90){
+    print(paste0(student_grade[j, 1], "'s grade this semester is ", highest))
+  }
+}
+```
+
+
+
+
