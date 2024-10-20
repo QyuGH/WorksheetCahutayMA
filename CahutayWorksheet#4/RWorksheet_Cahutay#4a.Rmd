@@ -160,7 +160,7 @@ for (i in 1:4) {
   total <- sum(student_grade[i, 2:5])  
   average <- total / 4
   
-  if (average >= 90){
+  if (average > 90){
     print(paste0(student_grade[i, 1], "'s average grade this semester is ", average))
   }
 }
