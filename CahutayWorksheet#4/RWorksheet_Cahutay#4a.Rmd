@@ -193,7 +193,7 @@ for (j in 1:nrow(student_grade)) {
     }
   }
  
-  if (highest >= 90){
+  if (highest > 90){
     print(paste0(student_grade[j, 1], "'s grade this semester is ", highest))
   }
 }
