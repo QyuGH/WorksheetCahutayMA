@@ -1,0 +1,104 @@
+---
+title: "RWorksheet_Cahutay#4b"
+author: "Mark Anton Cahutay"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. 5 x 5 Zero Matrix
+```{r}
+vectorA <- c(1, 2, 3, 4, 5)
+my_matrix <- matrix(0, nrow = 5, ncol = 5)
+
+for (i in 1:5) {
+  for (j in 1:5) {
+    my_matrix[i, j] <- vectorA[abs(i - j) + 1] - 1
+  }
+}
+
+print(my_matrix)
+
+```
+
+2. Print string "*" using for loop.
+```{r}
+for (i in 1:5){
+  for (j in 1:i){
+    cat("* ")
+  }
+  cat("\n")
+}
+```
+
+3. Print a Fibonacci sequence from the first input until the value reaches 500.
+```{r}
+printFibonacci <- function(start){
+  first <- 0
+  second <- 1
+  next_num <- 0
+  
+  if (start == 1){
+      cat(first, "", second, "", second, " ")
+  }
+  
+  for (i in 0:start){
+    next_num <- first + second
+    first <- second
+    second <- next_num
+  }
+  
+  repeat{
+    if (next_num > 500) break
+    cat(next_num, " ")
+    next_num <- first + second
+    first <- second
+    second <- next_num
+  }
+}
+
+start <- readline(prompt = "Enter starting term: ")
+printFibonacci(start)
+```
+
+4. Import shoe size dataset
+```{r}
+#A. Imported the dataset and displayed the first 6 rows
+shoe_data <- read.csv("shoesize_data.csv")
+shoe_data[(1:6), ]
+```
+
+```{r}
+#B. Subset for gender
+male <- subset(shoe_data, gender == "M", select = Gender)
+male
+
+female <- subset(shoe_data, gender == "F", select = Gender)
+female
+```
+
+```{r}
+#C. Barplot for genders
+num_gender <- table(shoe_data$Gender)
+
+barplot(num_gender,
+        main = "Number of Males and Females",
+        xlab = "Gender",
+        ylab = "Count",
+        col = c("Pink", "Blue"),
+        names.arg = c("Female", "Male"),
+        legend = rownames(num_gender))
+```
+
+
+
+
+
+
+
+
+
+
