@@ -61,6 +61,7 @@ printFibonacci <- function(start){
 }
 
 start <- readline(prompt = "Enter starting term: ")
+start <- 1
 printFibonacci(start)
 ```
 
@@ -94,6 +95,85 @@ barplot(num_gender,
 ```
 
 
+5. Monthly income pie chart of Dela Cruz Family.
+```{r}
+category <- c("Food", "Electricity", "Savings", "Miscellaneous")
+value <- c(60, 10, 5, 25)
+color = c("Yellow", "Blue", "Green", "Red")
+percentage <- round(value / sum(value) * 100)
+percent_label <- paste(category, percentage, "%")
+
+pie(
+  value, 
+  col = color,
+  main = "Dela Cruz Expenses",
+  label = percent_label
+)
+
+legend("topright", category, fill = color)
+```
+
+
+6. Iris Dataset
+```{r}
+#A. Check structure of iris dataset
+data(iris)
+str(iris)
+
+#Output displays a data frame that contains the length and width of Sepal and Petal
+```
+
+```{r}
+#B. Object to store the mean of sepal length, sepal width, petal length, and petal width
+sepal_length <- iris$Sepal.Length
+sepal_width <- iris$Sepal.Width
+petal_length <- iris$Petal.Length
+petal_width <- iris$Petal.Width
+```
+
+```{r}
+#C. Pie chart for Species distribution
+iris_species <- table(iris$Species)
+species_color <- c("Blue", "White", "Red")
+pie(
+  iris_species,
+  main = "Species Distribution",
+  col = species_color
+)
+legend("topright", names(iris_species), fill = species_color, title = "Species")
+```
+
+```{r}
+#D. Subset of the species setosa, versicolor, and virginica.
+setosa <- subset(iris, Species == "setosa")
+versicolor <- subset(iris, Species == "versicolor")
+virginica <- subset(iris, Species == "virginica")
+tail(setosa)
+tail(versicolor)
+tail(virginica)
+```
+
+```{r}
+#E. Scatterplot of the sepal.length and sepal.width
+data(iris)
+
+iris$Species <- as.factor(iris$Species)
+
+colors <- c("red", "green", "blue")
+pch_symbols <- c(16, 17, 18) 
+
+plot(iris$Sepal.Length, iris$Sepal.Width,
+     col = colors[iris$Species],
+     pch = pch_symbols[iris$Species],
+     main = "Iris Dataset",
+     sub = "Sepal Width and Length",
+     xlab = "Sepal Length",
+     ylab = "Sepal Width")
+
+legend("topright", legend = levels(iris$Species),
+       col = colors, pch = pch_symbols)
+
+```
 
 
 
