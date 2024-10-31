@@ -60,7 +60,7 @@ printFibonacci <- function(start){
   }
 }
 
-start <- readline(prompt = "Enter starting term: ")
+#start <- readline(prompt = "Enter starting term: ")
 start <- 1
 printFibonacci(start)
 ```
@@ -74,10 +74,10 @@ shoe_data[(1:6), ]
 
 ```{r}
 #B. Subset for gender
-male <- subset(shoe_data, gender == "M", select = Gender)
+male <- subset(shoe_data, Gender == "M")
 male
 
-female <- subset(shoe_data, gender == "F", select = Gender)
+female <- subset(shoe_data, Gender == "F")
 female
 ```
 
@@ -125,10 +125,13 @@ str(iris)
 
 ```{r}
 #B. Object to store the mean of sepal length, sepal width, petal length, and petal width
-sepal_length <- iris$Sepal.Length
-sepal_width <- iris$Sepal.Width
-petal_length <- iris$Petal.Length
-petal_width <- iris$Petal.Width
+data_means <- c(
+  Sepal.Length = mean(iris$Sepal.Length),
+  Sepal.Width = mean(iris$Sepal.Width),
+  Petal.Length = mean(iris$Petal.Length),
+  Petal.Width = mean(iris$Petal.Width)
+)
+data_means
 ```
 
 ```{r}
@@ -172,7 +175,92 @@ plot(iris$Sepal.Length, iris$Sepal.Width,
 
 legend("topright", legend = levels(iris$Species),
        col = colors, pch = pch_symbols)
+```
 
+F. 
+- The scatterplot shows the relationship between Sepal.Length and Sepal.Width across three species in the iris dataset: setosa, versicolor, and virginica.
+- Setosa (red circles) is distinctly clustered with smaller sepal lengths, making it easily distinguishable from the other species.
+- Versicolor (green triangles) and Virginica (blue diamonds) show overlapping ranges in both dimensions, with virginica generally having the longest sepals.
+
+
+7. Basic Cleaning and Transformation of Objects
+```{r}
+#Imported alexafile
+library(readxl)
+alexa_file <- read_xlsx("alexa_file.xlsx")
+alexa_file
+```
+
+```{r}
+#A. Rename the white and black variants using gsub() function.
+alexa_file$variation <- gsub("Black  Dot", "BlackDot", alexa_file$variation)
+alexa_file$variation <- gsub("Black  Plus", "BlackPlus", alexa_file$variation)
+alexa_file$variation <- gsub("Black  Show", "BlackShow", alexa_file$variation)
+alexa_file$variation <- gsub("Black  Spot", "BlackSpot", alexa_file$variation)
+alexa_file$variation <- gsub("White  Spot", "WhiteSpot", alexa_file$variation)
+alexa_file$variation <- gsub("White  Show", "WhiteShow", alexa_file$variation)
+alexa_file$variation <- gsub("White  Plus", "WhitePlus", alexa_file$variation)
+alexa_file$variation <- gsub("White  Dot", "WhiteDot", alexa_file$variation)
+
+alexa_file$variation[1050:2000]
+```
+
+```{r}
+#B. Get the total number of variation
+library(dplyr)
+
+alexa_var <- alexa_file %>%
+  count(alexa_file$variation)
+  alexa_var
+
+save(alexa_var, file = "variations.RData")
+```
+
+```{r}
+#C. Create a barplot from variations.RData
+load("variations.RData")
+
+barplot(
+  alexa_var$n,
+  col = c("violet", "blue", "green", "yellow"),
+  main = "Total Number Of Each Variations",
+  ylab = "Variants",
+  names.arg = alexa_var$`alexa_file$variation`,         
+  las = 2      
+)
+```
+
+```{r}
+#D. Create a barplot of black and white variations
+load("variations.RData")
+
+par(mfrow = c(1, 2))
+
+black_var <- alexa_var %>% 
+  filter(`alexa_file$variation` %in% c("Black", "BlackDot", "BlackPlus", "BlackShow", "BlackSpot"))
+
+barplot(
+  height = black_var$n, 
+  names.arg = black_var$`alexa_file$variation`, 
+  col = c("purple", "red", "orange", "yellow", "lightgreen"),               
+  main = "Black Variants",
+  xlab = "Total Numbers",                         
+  ylab = "Variations",
+  las = 2
+)
+
+white_var <- alexa_var %>% 
+  filter(`alexa_file$variation` %in% c("White", "WhiteDot", "WhitePlus", "WhiteShow", "WhiteSpot"))
+
+barplot(
+  height = white_var$n,  
+  names.arg = white_var$`alexa_file$variation`, 
+  col = c("purple", "red", "orange", "yellow", "lightgreen"),              
+  main = "White Variants",
+  xlab = "Total Numbers",                         
+  ylab = "Variations",
+  las = 2
+)
 ```
 
 
