@@ -22,9 +22,11 @@ str(mpg_data)
 #C. The continuous variables from mpg are displ, cty, and hwy.
 ```
 
+
 2. The manufacturer with the most models and the model with the most variations.
 ```{r}
 #A. Code for grouping the manufacturers and to look for their unique models.
+library(dplyr)
 manufacturer_model <- mpg %>%
   group_by(manufacturer) %>%
   summarize(model_num = n_distinct(model)) %>%
@@ -33,7 +35,70 @@ manufacturer_model <- mpg %>%
 manufacturer_model
 
 variations_num <- table(mpg$model)
-variations_num [variations_num  == max(variations_num)]
+variations_num [variations_num == max(variations_num)]
 ```
 
+```{r}
+#B. Graph the result using plot() and ggplot().
+
+#below is the barplot from plot() function
+manufacturer_data <- setNames(
+  manufacturer_model$model_num, 
+  manufacturer_model$manufacturer
+  )
+
+barplot(manufacturer_data, 
+        main = "Number of Models per Manufacturer",
+        xlab = "Manufacturer",
+        ylab = "Number of Models",
+        col = c("skyblue", "salmon", "lightgreen", "gold", "orchid"),
+        las = 3)
+
+
+#below is the barplot from the ggplot().
+variations_num <- mpg %>%
+  group_by(model) %>%
+  summarize(count = n()) %>%
+  arrange(desc(count))
+
+variations_num
+
+ggplot(variations_num,
+       aes(x = reorder(model, -count), y = count)) +
+       geom_bar(stat = "identity", fill = "skyblue") +
+       labs(title = "Number of Variations per Model", x = "Model", y = "Count") +
+       theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+2. Relationship of the model and manufacturer.
+```{r}
+#A. What does ggplot(mpg, aes(model, manufacturer)) + geom_point() show?
+
+ggplot(mpg, aes(model, manufacturer)) + geom_point()
+#This code displays a scatter plot of models and manufacturers.
+
+```
+
+B. For you, is it useful? If not, how could you modify the data to make it more informative?
+- For me, the scatter plot isn't useful, it is difficult to interpret because 
+of the messy labels below it. 
+To make it useful, I would change it to a bar plot because the data being used here 
+are both categorical variable and bar plot works better with it. Setting the
+labels much clearer and readable would also be considered here.
+
+
+
+3. Plot the model and the year using ggplot(). Use only the top 20 observations.
+```{r}
+obs20 <- mpg[1:20, ]
+
+ggplot(obs20, 
+       aes(x = model, y = year)) +
+       geom_point(color = "blue", size = 2) +
+       labs(
+          title = "Model and Year (Top 20 Observations)",
+          x = "Model",
+          y = "Year") +
+       theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
 
