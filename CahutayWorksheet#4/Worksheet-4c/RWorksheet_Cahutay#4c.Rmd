@@ -1,0 +1,39 @@
+---
+title: "RWorksheet_Cahutay#4c"
+author: "Mark Anton Cahutay"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Use the dataset mpg
+```{r}
+#A. Solution on how to import a csv file into the environment.
+library(ggplot2)
+
+mpg_data <- read.csv("mpg.csv")
+str(mpg_data)
+
+#B. The categorical variables from the mpg dataset are manufacture, model, year, cyl, trans, drv, fl, and class. 
+
+#C. The continuous variables from mpg are displ, cty, and hwy.
+```
+
+2. The manufacturer with the most models and the model with the most variations.
+```{r}
+#A. Code for grouping the manufacturers and to look for their unique models.
+manufacturer_model <- mpg %>%
+  group_by(manufacturer) %>%
+  summarize(model_num = n_distinct(model)) %>%
+  arrange(desc(model_num))
+
+manufacturer_model
+
+variations_num <- table(mpg$model)
+variations_num [variations_num  == max(variations_num)]
+```
+
+
