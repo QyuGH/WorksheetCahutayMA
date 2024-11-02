@@ -189,6 +189,8 @@ F.
 library(readxl)
 alexa_file <- read_xlsx("alexa_file.xlsx")
 alexa_file
+
+knitr::include_graphics("Screenshot_alexa.png")
 ```
 
 ```{r}
