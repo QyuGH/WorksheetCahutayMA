@@ -23,7 +23,7 @@ str(mpg_data)
 ```
 
 
-2. The manufacturer with the most models and the model with the most variations.
+2.1: The manufacturer with the most models and the model with the most variations.
 ```{r}
 #A. Code for grouping the manufacturers and to look for their unique models.
 library(dplyr)
@@ -64,13 +64,13 @@ variations_num <- mpg %>%
 variations_num
 
 ggplot(variations_num,
-       aes(x = reorder(model, -count), y = count)) +
-       geom_bar(stat = "identity", fill = "skyblue") +
+       aes(x = reorder(model, count), y = count)) +
+       geom_bar(stat = "identity", fill = "skyblue") +  coord_flip() +
        labs(title = "Number of Variations per Model", x = "Model", y = "Count") +
-       theme(axis.text.x = element_text(angle = 90, hjust = 1))
+       theme_minimal()
 ```
 
-2. Relationship of the model and manufacturer.
+2.2: Relationship of the model and manufacturer.
 ```{r}
 #A. What does ggplot(mpg, aes(model, manufacturer)) + geom_point() show?
 
@@ -102,3 +102,204 @@ ggplot(obs20,
        theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
+
+4. Using the pipe (%>%) to group the model and getting the number of cars per model.
+```{r}
+library(dplyr)
+
+carNum <- mpg %>%
+  group_by(model) %>%
+  summarize(count = n())
+
+carNum
+```
+
+```{r}
+#A. Plot using geom_bar() using the top 20 observations only.
+
+carNum20 <- obs20 %>%
+  group_by(model) %>%
+  summarise(count = n())
+
+ggplot(
+  carNum20,
+  aes(x = reorder(model, -count), y = count)
+) +
+  geom_bar(stat = "identity", fill = "salmon") +
+  labs(
+    title = "Top 20 Observations of Number of Cars per Model",
+    x = "Model",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+```
+
+```{r}
+#B. Plot using geom_bar() + coord_flip()
+ggplot(
+  carNum20,
+  aes(x = reorder(model, count), y = count)
+) +
+  geom_bar(stat = "identity", fill = "salmon") +
+  labs(
+    title = "Top 20 Observations of Number of Cars per Model",
+    x = "Model",
+    y = "Count"
+  ) +
+  coord_flip() +
+  theme_minimal()
+```
+```{r}
+
+```
+
+
+5. Plot the relationship between cyl - number of cylinders and displ - engine displacement using
+geom_point with aesthetic color = engine displacement.
+```{r}
+#A. How would you describe its relationship? Show the codes and its result.
+ggplot(mpg_data, 
+       aes(x = cyl, y = displ, color = displ)) +
+       geom_point() +
+       labs(
+          title = "Relationship between No. of Cylinders and Engine Displacement",
+          x = "Number of Cylinders",
+          y = "Engine Displacement"
+       ) +
+  theme_minimal()
+```
+- From my own observations, the cars with higher number of cylinders often comes with
+higher engine displacement. 
+
+
+6.1: Plot the relationship between displ (engine displacement) and hwy(highway miles per gallon). Mapped
+it with a continuous variable you have identified in #1-c. What is its result? Why it produced such
+output?
+```{r}
+ggplot(mpg_data, 
+       aes(x = displ, y = hwy, color = cty)
+       ) +
+       geom_point() +
+       labs(
+         title = "Relationship between Engine Displacement and Highway Miles per Gallons",
+         x = "Engine Displacement",
+         y = "Highway Miles per Gallons"
+       ) +
+       theme_minimal()
+```
+- From my observation of the relationship between engine displacement and highway miles per gallon, cars with higher engine displacements tend to be less fuel efficient. In contrast, vehicles with lower engine displacements are generally more fuel efficient, as they consume less fuel per mile traveled. 
+
+
+6.2: Import traffic.csv
+```{r}
+#A. Number of observations of traffic.csv
+traffic_data <- read.csv("traffic.csv")
+
+str(traffic_data)
+```
+- The number of observations of traffic.csv is 48,120. The variables on the other is 4 which are named DateTime, Junction, Vehicles, and ID.
+
+```{r}
+#B. Subset of the traffic dataset into junctions.
+traffic_junction <- traffic_data$Junction
+```
+
+```{r}
+#C. Plot junction in a geom_line()
+junction_plot <- traffic_data %>% select(DateTime, Junction, Vehicles)
+
+junction_plot$DateTime <- as.POSIXct(junction_plot$DateTime, format="%Y-%m-%d %H:%M:%S")
+
+ggplot(junction_plot, aes(x = DateTime, y = Vehicles, color = factor(Junction))) +
+  geom_line() +
+  labs(title = "Vehicle Count Over Time by Junction",
+       x = "DateTime",
+       y = "Vehicle Count",
+       color = "Junction") +
+  theme_classic()
+```
+
+
+7. Import alexa_file.xlsx
+```{r}
+library(readxl)
+alexa_data <- read_xlsx("alexa_file.xlsx")
+
+#A. Number of observations and columns of alexa_file
+str(alexa_data)
+```
+- The alexa_file has 3,150 number of observations and 5 number of variables or columns, these
+are the rating, date, variation, verified_reviews, and feedback.
+
+```{r}
+#B. Grouping and getting the total of each variations
+alexa_variations <- alexa_data %>%
+  group_by(variation) %>%
+   summarise(total = n()) 
+
+alexa_variations
+```
+
+```{r}
+#C. Plot the variations using the ggplot() function.
+library(viridis) 
+library(ggplot2)
+
+ggplot(alexa_variations, aes(x = variation, y = total, fill = variation)) +
+  geom_bar(stat = "identity") +
+  labs(title = "All Variations",
+       x = "Variation",
+       y = "Total") +
+       theme(legend.position = "none") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_viridis_d(option = "turbo")
+```
+- Based on my observation, the dark colored variations are the most dominant ones, most of it
+have higher total than those in the white or light colored variations.
+
+```{r}
+#D. Plot a geom_line() with the date and the number of verified reviews.
+library(ggplot2)
+library(dplyr)
+
+reviews <- alexa_data %>%
+  filter(!is.na(verified_reviews)) %>%  
+  group_by(date) %>%                    
+  summarise(reviews_num = n()) 
+
+reviews
+
+
+ggplot(reviews, aes(x = date, y = reviews_num)) +
+  geom_line(color = "blue") +
+  labs(title = "Number of Verified Reviews",
+       x = "Date",
+       y = "Verified Reviews Count") +
+  theme_classic()
+```
+
+
+```{r}
+#E. Get the relationship of variations and ratings. Which variations got the most highest in rating? Plot a graph to show its relationship.
+library(forcats)
+ratings_data <- alexa_data %>%
+  group_by(variation) %>%
+  summarise(avg_rating = mean(rating))
+
+ratings_data <- ratings_data %>%
+  mutate(variation = fct_reorder(variation, avg_rating, .desc = TRUE))
+
+ggplot(ratings_data, aes(x = variation, y = avg_rating, fill = variation)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "Relationship of Variations and Ratings",
+    x = "Variations",
+    y = "Ratings"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(legend.position = "none") +
+  scale_fill_viridis_d(option = "inferno")
+```
+- The top 3 variations that got highest ratings are the Walnut Finish followed by Oak Finish and
+Charcoal Fabric.
